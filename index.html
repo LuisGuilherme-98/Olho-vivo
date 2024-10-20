@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +10,10 @@
     <h1>Registro de Problema</h1>
     <form id="reportForm">
         <label for="photo">Tire uma foto do problema:</label>
-        <button type="button" id="cameraButton"> Abrir Câmera</button>
-         <input type="file" id="photo" accept="image/*" capture="environment" style="display: none;" required>
-        <img id="preview" alt="Pré-vizualiza/ão da foto" style="display: none; max-width: 100%; margin-top: 10px;"/>
+        <button type="button" id="cameraButton">Abrir Câmera</button>
+        <video id="video" width="320" height="240" autoplay style="display: none;"></video>
+        <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+        <img id="preview" alt="Pré-visualização da foto" style="display: none; max-width: 100%; margin-top: 10px;"/>
 
         <label for="location">Localização:</label>
         <button type="button" id="getLocationBtn">Obter Localização</button>
