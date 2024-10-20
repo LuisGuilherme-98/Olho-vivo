@@ -56,7 +56,11 @@ document.getElementById("reportForm").addEventListener("submit", function(event)
     .then(response => response.json())
     .then(data => {
         console.log('Sucesso:', data);
-        // Aqui você pode adicionar lógica para mostrar que o upload foi bem-sucedido
+        
+        // Limpa os campos após o envio
+        document.getElementById('comment').value = ''; // Limpa o campo de comentários
+        document.getElementById('preview').src = ''; // Limpa a imagem
+        document.getElementById('preview').style.display = 'none'; // Esconde a imagem
     })
     .catch((error) => {
         console.error('Erro:', error);
