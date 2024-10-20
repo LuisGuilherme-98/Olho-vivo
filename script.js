@@ -4,32 +4,36 @@ document.getElementById("cameraButton").addEventListener("click", function() {
     const canvas = document.getElementById('canvas');
     const preview = document.getElementById('preview');
 
-    // Acessa a câmera do dispositivo
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function(stream) {
-            video.style.display = "block"; // Mostra o vídeo ao vivo
-            video.srcObject = stream;
+    // Acessa a câmera do dispositivo (câmera traseira)
+    navigator.mediaDevices.getUserMedia({
+        video: {
+            facingMode: { exact: "environment" } // Solicita a câmera traseira
+        }
+    })
+    .then(function(stream) {
+        video.style.display = "block"; // Mostra o vídeo ao vivo
+        video.srcObject = stream;
+        video.play();
 
-            // Tirar a foto ao clicar no vídeo
-            video.addEventListener('click', function() {
-                // Desenha o frame atual do vídeo no canvas
-                const context = canvas.getContext('2d');
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // Captura a imagem ao clicar no vídeo
+        video.addEventListener('click', function() {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                // Converte o canvas em imagem
-                const dataURL = canvas.toDataURL('image/png');
-                preview.src = dataURL; // Exibe a foto
-                preview.style.display = "block"; // Mostra a pré-visualização
-                video.style.display = "none"; // Esconde o vídeo ao vivo
+            // Converte o canvas em imagem
+            const dataURL = canvas.toDataURL('image/png');
+            preview.src = dataURL; // Exibe a foto
+            preview.style.display = "block"; // Mostra a pré-visualização
+            video.style.display = "none"; // Esconde o vídeo ao vivo
 
-                // Parar o stream da câmera
-                const tracks = stream.getTracks();
-                tracks.forEach(track => track.stop());
-            });
-        })
-        .catch(function(error) {
-            console.log("Erro ao acessar a câmera: ", error);
+            // Para o stream da câmera
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
         });
+    })
+    .catch(function(error) {
+        console.log("Erro ao acessar a câmera: ", error);
+    });
 });
 
 // Envio do formulário
